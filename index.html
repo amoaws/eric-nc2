@@ -3,97 +3,301 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tabbed Data Display</title>
-  <link rel="stylesheet" href="style.css">
+  <title>TESDA Record Verification</title>
+  <!-- FontAwesome for the user icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #333;
+      background-color: #ffffff;
+      padding: 30px 15px;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1250px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    /* Panel Card */
+    .panel {
+      background-color: #fff;
+      border: 1px solid #bce8f1;
+      border-radius: 6px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+
+    /* Panel Header */
+    .panel-heading {
+      color: #31708f;
+      background-color: #d9edf7;
+      border-bottom: 1px solid #bce8f1;
+      padding: 12px 18px;
+      font-size: 14.5px;
+      font-weight: bold;
+      letter-spacing: 0.2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .panel-heading .fa {
+      font-size: 15px;
+    }
+
+    /* Panel Body */
+    .panel-body {
+      padding: 24px 20px 20px 20px;
+    }
+
+    /* Navigation Tabs */
+    .tab-navigation {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-bottom: 20px;
+      padding-left: 2px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      outline: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: inherit;
+      color: #337ab7;
+      padding: 7px 18px;
+      text-decoration: none;
+      display: inline-block;
+      transition: color 0.15s ease-in-out;
+    }
+
+    .tab-btn:hover {
+      text-decoration: underline;
+      color: #23527c;
+    }
+
+    /* Active Tab Box */
+    .tab-btn.active {
+      border: 1.8px solid #222;
+      border-radius: 4px;
+      color: #000;
+      text-decoration: none;
+      background-color: #fff;
+      font-weight: 500;
+    }
+
+    /* Tab Panes */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Responsive Table Container */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid #e0e0e0;
+    }
+
+    /* Main Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+      background-color: #fff;
+      font-size: 13.5px; /* Increased, easy-to-read size */
+      min-width: 850px;
+    }
+
+    table th, 
+    table td {
+      border: 1px solid #e0e0e0;
+      padding: 10px 14px;
+      line-height: 1.45;
+      vertical-align: middle;
+      text-align: left;
+    }
+
+    table th {
+      font-weight: bold;
+      color: #111;
+      background-color: #ffffff;
+      white-space: nowrap;
+    }
+
+    table td {
+      color: #333;
+    }
+
+    /* Assessment Result Box */
+    .result-box {
+      border: 1px solid #ebccd1;
+      background-color: #fcebeb;
+      color: #a94442;
+      padding: 5px 8px;
+      font-size: 12px;
+      line-height: 1.4;
+      display: inline-block;
+      white-space: nowrap;
+      border-radius: 2px;
+    }
+
+    .result-box strong {
+      font-weight: bold;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 768px) {
+      body {
+        padding: 15px 8px;
+      }
+      .panel-body {
+        padding: 15px 10px;
+      }
+      .tab-navigation {
+        gap: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <div class="card">
-    <div class="card-header">
-      <span class="user-icon">&#128100;</span>
-      <span class="header-title">User Information</span>
+<div class="container">
+  <div class="panel">
+    <!-- Header -->
+    <div class="panel-heading">
+      <i class="fa fa-user" aria-hidden="true"></i> JADE REGONAS TIMOG TIMOG
     </div>
 
-    <!-- Navigation Tabs -->
-    <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab(event, 'tab-training')">Training</button>
-      <button class="tab-btn" onclick="switchTab(event, 'tab-assessment')">Assessment</button>
-      <button class="tab-btn" onclick="switchTab(event, 'tab-renewal')">Renewal</button>
-    </div>
+    <!-- Body -->
+    <div class="panel-body">
+      <!-- Tabs -->
+      <div class="tab-navigation">
+        <button class="tab-btn active" onclick="switchTab(event, 'tab-training')">Training</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab-assessment')">Assessment</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab-renewal')">Renewal</button>
+      </div>
 
-    <!-- Content Sections -->
-    <div class="table-container">
-      <!-- Training Tab -->
+      <!-- 1. TRAINING TAB -->
       <div id="tab-training" class="tab-content active">
-        <table class="responsive-table">
-          <thead>
-            <tr>
-              <th>Region</th>
-              <th>Province</th>
-              <th>Institution</th>
-              <th>Qualification</th>
-              <th>Schedule</th>
-              <th>Result</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td colspan="6" class="text-center">No records found.</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 9%;">Region</th>
+                <th style="width: 11%;">Province</th>
+                <th style="width: 11%;">School</th>
+                <th style="width: 17%;">Qualification</th>
+                <th style="width: 11%;">Schedule</th>
+                <th style="width: 9%;">Trainor</th>
+                <th style="width: 17%;">Type of Scholarship</th>
+                <th style="width: 15%;">Training Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Empty state as shown in image 1 -->
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <!-- Assessment Tab -->
+      <!-- 2. ASSESSMENT TAB -->
       <div id="tab-assessment" class="tab-content">
-        <table class="responsive-table">
-          <thead>
-            <tr>
-              <th>Region</th>
-              <th>Province</th>
-              <th>Assessment Center</th>
-              <th>Qualification</th>
-              <th>Schedule</th>
-              <th>Result</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td data-label="Region">Sample Region</td>
-              <td data-label="Province">Sample Province</td>
-              <td data-label="Assessment Center">Vocational Center</td>
-              <td data-label="Qualification">Sample Course NC II</td>
-              <td data-label="Schedule">01/01/2025</td>
-              <td data-label="Result"><span class="badge success">Passed</span></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 10%;">Region</th>
+                <th style="width: 10%;">Province</th>
+                <th style="width: 42%;">Assessment Center</th>
+                <th style="width: 21%;">Qualification</th>
+                <th style="width: 7%;">Schedule</th>
+                <th style="width: 10%;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Region XI - Davao</td>
+                <td>Davao del Sur</td>
+                <td>REGIONAL TRAINING CENTER-KOREA PHILIPPINES VOCATIONAL TRAINING CENTER, DAVAO</td>
+                <td>Shielded Metal Arc Welding (SMAW) NC II</td>
+                <td>6/21/2024</td>
+                <td>
+                  <div class="result-box">
+                    Assessment Result :<br>
+                    <strong>Competent</strong>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <!-- Renewal Tab -->
+      <!-- 3. RENEWAL TAB -->
       <div id="tab-renewal" class="tab-content">
-        <table class="responsive-table">
-          <thead>
-            <tr>
-              <th>Region</th>
-              <th>Province</th>
-              <th>Qualification</th>
-              <th>Valid Until</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td data-label="Region">Sample Region</td>
-              <td data-label="Province">Sample Province</td>
-              <td data-label="Qualification">Sample Course NC II</td>
-              <td data-label="Valid Until">01/01/2030</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 22%;">Region</th>
+                <th style="width: 18%;">Province</th>
+                <th style="width: 46%;">Qualification</th>
+                <th style="width: 11%;">Valid Until</th>
+                <th style="width: 3%;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Region XI - Davao</td>
+                <td>Davao del Sur</td>
+                <td>Shielded Metal Arc Welding (SMAW) NC II</td>
+                <td>6/20/2029</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
+
     </div>
   </div>
+</div>
 
-  <script src="script.js"></script>
+<script>
+  function switchTab(e, tabId) {
+    // Hide all tab panes
+    const panes = document.querySelectorAll('.tab-content');
+    panes.forEach(pane => pane.classList.remove('active'));
+
+    // Remove active state from all buttons
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+
+    // Show clicked tab
+    document.getElementById(tabId).classList.add('active');
+    e.currentTarget.classList.add('active');
+  }
+</script>
+
 </body>
 </html>
