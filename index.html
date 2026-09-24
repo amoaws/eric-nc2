@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabbed Data Display</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="user-icon">&#128100;</span>
+      <span class="header-title">User Information</span>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(event, 'tab-training')">Training</button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab-assessment')">Assessment</button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab-renewal')">Renewal</button>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="table-container">
+      <!-- Training Tab -->
+      <div id="tab-training" class="tab-content active">
+        <table class="responsive-table">
+          <thead>
+            <tr>
+              <th>Region</th>
+              <th>Province</th>
+              <th>Institution</th>
+              <th>Qualification</th>
+              <th>Schedule</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="6" class="text-center">No records found.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Assessment Tab -->
+      <div id="tab-assessment" class="tab-content">
+        <table class="responsive-table">
+          <thead>
+            <tr>
+              <th>Region</th>
+              <th>Province</th>
+              <th>Assessment Center</th>
+              <th>Qualification</th>
+              <th>Schedule</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Region">Sample Region</td>
+              <td data-label="Province">Sample Province</td>
+              <td data-label="Assessment Center">Vocational Center</td>
+              <td data-label="Qualification">Sample Course NC II</td>
+              <td data-label="Schedule">01/01/2025</td>
+              <td data-label="Result"><span class="badge success">Passed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Renewal Tab -->
+      <div id="tab-renewal" class="tab-content">
+        <table class="responsive-table">
+          <thead>
+            <tr>
+              <th>Region</th>
+              <th>Province</th>
+              <th>Qualification</th>
+              <th>Valid Until</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Region">Sample Region</td>
+              <td data-label="Province">Sample Province</td>
+              <td data-label="Qualification">Sample Course NC II</td>
+              <td data-label="Valid Until">01/01/2030</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
